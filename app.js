@@ -27,6 +27,19 @@ app.use('/api/user', usersRouter);
 app.use('/api/chat',chatRouter);
 app.use('/api/message',messageRoutes);
 
+//==============deployment===========================
+// const __dirname1 = path.resolve();
+if (process.env.NODE_ENV) {
+  app.use(express.static(path.resolve(process.cwd(), 'client/build')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(process.cwd(), 'client/build/index.html'))
+  })
+}else{
+  app.get('/',(req,res)=>{
+    res.send("success")
+  })
+}
+
 
 
 // catch 404 and forward to error handler
